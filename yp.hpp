@@ -3,6 +3,8 @@
 
 #include <vector>
 using std::vector;
+#include <cmath>
+using std::sqrt;
 
 vector<double> jp(const vector<double> a, const vector<double> b) {
 	vector<double> h;
@@ -15,5 +17,7 @@ const vector<double> b) {
 	for (size_t i = 0; i < b.size(); i++) {h.push_back(a * b[i]);}
 	return h;
 }
+
+double softads(double x, double eps = 0.1) {return sqrt(x * x + eps);}
 
 #endif
