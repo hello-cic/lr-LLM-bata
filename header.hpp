@@ -4,6 +4,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
+using std::cin;
 
 #include <vector>
 using std::vector;
@@ -13,7 +14,11 @@ using std::string;
 using std::to_string;
 
 #include <cmath>
-using std::max;
+using std::tanh;
+
+#include <cstdlib>
+
+#include <ctime>
 
 #include "struct.hpp"
 

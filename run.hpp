@@ -37,11 +37,14 @@ const vector<int> neur, int step, int N, int M, double rr) {
 		for (size_t i = 0;i < neur[1];i++) {
 			double sum = 0;
 			for (size_t n = 0; n < neur[1]; n++) { sum += op[n] * hw[i][n]; }
-			b[i] += sum * 0.25 / step;
-			b[i] *= 0.9;
-			for (size_t n = 0; n < neur[1]; n++) { hw[i][n] -= sum * 0.00000000001 / step; }
+			if (i < N) {
+				if (sum < 0.2) { b[i] = (b[i] * 0.7) * (sum * 0.3); }
+				else { b[i] *= 0.7; }
+				b[i] = std::min(b[i], 5.0);
+			}
+			for (size_t n = 0; n < neur[1]; n++) { hw[i][n] -= sum * 0.000000001 / step; }
 			sum /= b[i];
-			sum = max(0.0, sum);
+			sum = tanh(sum);
 			op[i] = sum;
 		}
 		vector<double> tmpr(op.end() - r.size(), op.end());
