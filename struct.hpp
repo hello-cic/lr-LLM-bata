@@ -13,13 +13,13 @@ struct initc {
 	vector<double> b;//隐藏层阈值
 	vector<vector<double>> ow;//输出层权重
 	vector<string> log;//日志
-	string error = "";//错误
 };
 
 struct runc {
 	vector<vector<double>> ia;
 	vector<vector<double>> ha;
 	vector<double> output;
+	vector<string> error;
 };
 
 #endif

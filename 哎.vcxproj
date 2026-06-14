@@ -142,12 +142,14 @@
     <ClCompile Include="哎.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ap.hpp" />
+    <ClInclude Include="yp.hpp" />
     <ClInclude Include="cmd.h" />
     <ClInclude Include="header.hpp" />
     <ClInclude Include="init.hpp" />
     <ClInclude Include="run.hpp" />
+    <ClInclude Include="Softmax.hpp" />
     <ClInclude Include="struct.hpp" />
+    <ClInclude Include="uw.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
