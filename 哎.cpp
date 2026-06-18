@@ -3,6 +3,7 @@
 #include "uw.hpp"
 #include "Softmax.hpp"
 #define init_lr 0.1
+#define PI 3.1415926
 
 int main(){
     string m;
@@ -19,7 +20,6 @@ int main(){
             cin.ignore();
             cin >> _step_;
             double lr = init_lr;
-            const double PI = 3.141592653589793;
             int T = 200;
             double se = 0;
             for (size_t i = 0; i < _step_; i++) {
