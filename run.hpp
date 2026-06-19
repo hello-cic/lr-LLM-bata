@@ -2,7 +2,7 @@
 #define run_hpp
 
 #include "header.hpp"
-vector<double> inita(int neurs, 
+inline vector<double> inita(int neurs, 
 const vector<double> ip, 
 const vector<double> b, 
 const vector<vector<double>> w) {
@@ -15,7 +15,7 @@ const vector<vector<double>> w) {
 	}
 	return inita;
 }
-runc run(vector<vector<double>>& iw,
+inline runc run(vector<vector<double>>& iw,
 vector<vector<double>>& hw,
 vector<double>& b, 
 vector<vector<double>> ow,
@@ -48,7 +48,7 @@ const vector<int> neur, int step, int N, int M, double rr) {
 			op[i] = sum;
 		}
 		vector<double> tmpr(op.end() - r.size(), op.end());
-		r = jp(cpp((1.0 - rr), r), cpp(rr, tmpr));
+		r = jp(cpp(rr, r), cpp((1.0 - rr), tmpr));
 		rc.ha.push_back(op);
 		op.resize(op.size() - r.size());
 		ip = op;

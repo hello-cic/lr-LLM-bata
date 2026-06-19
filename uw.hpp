@@ -3,7 +3,7 @@
 
 #include "header.hpp"
 
-double tmp(const vector<double> p, const vector<double> tv) {
+inline double tmp(const vector<double> p, const vector<double> tv) {
 	double sum = 0;
 	for (size_t i = 0; i < p.size(); i++) {
 		sum += (tv[i] - (softads(tv[i] - p[i]))) * (tv[i] - (softads(tv[i] - p[i])));
@@ -11,7 +11,7 @@ double tmp(const vector<double> p, const vector<double> tv) {
 	return sum;
 }
 
-double uw(vector<vector<double>>& iw, vector<vector<double>>& hw, vector<double>& b, vector<vector<double>>& ow,
+inline double uw(vector<vector<double>>& iw, vector<vector<double>>& hw, vector<double>& b, vector<vector<double>>& ow,
 const vector<vector<double>> input, const vector<vector<double>> ha, const vector<double> output, 
 const vector<int> neur, int step, vector<double> tv, int M, int N,
 double lr) {

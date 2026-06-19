@@ -6,7 +6,7 @@ using std::vector;
 #include <cmath>
 using std::exp;
 
-vector<double> softmax(vector<double> ip) {
+inline vector<double> softmax(vector<double> ip) {
 	vector<double> op(ip.size());
 	double sum = 0;
 	for (size_t i = 0; i < ip.size(); i++) { sum += exp(ip[i]); }

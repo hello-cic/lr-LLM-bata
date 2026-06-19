@@ -3,7 +3,7 @@
 
 #include "header.hpp"
 
-initc init(vector<int> neur, int M, double x) {
+inline initc init(vector<int> neur, int M, double x) {
 	initc c;
 	srand(time(nullptr));
 	//输入层权重 (隐藏层神经元数 × 输入层神经元数)

@@ -139,9 +139,12 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="NN_main.cpp" />
     <ClCompile Include="哎.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NN.hpp" />
+    <ClInclude Include="NN_main.hpp" />
     <ClInclude Include="yp.hpp" />
     <ClInclude Include="cmd.h" />
     <ClInclude Include="header.hpp" />
@@ -150,6 +153,9 @@
     <ClInclude Include="Softmax.hpp" />
     <ClInclude Include="struct.hpp" />
     <ClInclude Include="uw.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
