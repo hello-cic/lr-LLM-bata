@@ -2,6 +2,11 @@
 #define run_hpp
 
 #include "header.hpp"
+
+inline double sigmoid(double x) {return 1.0 / (1.0 + exp(0 - x));}
+
+inline double silu(double x) {return x * sigmoid(x);}
+
 inline vector<double> inita(int neurs, 
 const vector<double> ip, 
 const vector<double> b, 
@@ -23,8 +28,8 @@ const vector<vector<double>> input,
 const vector<int> neur, int step, int N, int M, double rr) {
 	runc rc;
 	if (N + M != neur[1]) {
-		if (N + M < neur[1]) { rc.error.push_back("Please increase the number of hidden layers."); }
-		if (N + M > neur[1]) { rc.error.push_back("Please decrease the number of hidden layers."); }
+		if (N + M < neur[1]) { rc.error.push_back(U"Please increase the number of hidden layers."); }
+		if (N + M > neur[1]) { rc.error.push_back(U"Please decrease the number of hidden layers."); }
 		return rc;
 	}
 	vector<double> ip(neur[1], 0.0);

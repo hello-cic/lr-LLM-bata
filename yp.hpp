@@ -1,5 +1,5 @@
-#ifndef ap_hpp
-#define ap_hpp
+#ifndef yp_hpp
+#define yp_hpp
 
 #include <vector>
 using std::vector;
@@ -18,6 +18,6 @@ const vector<double> b) {
 	return h;
 }
 
-double softads(double x, double eps = 0.1) {return sqrt(x * x + eps);}
+inline double softads(double x, double eps = 0.1) {return sqrt(x * x + eps);}
 
 #endif

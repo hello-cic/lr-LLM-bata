@@ -4,6 +4,12 @@
 #include "header.hpp"
 
 inline double tmp(const vector<double> p, const vector<double> tv) {
+	/*for (size_t i = 0; i < p.size(); i++) {
+		cout << p[i] << endl;
+	}
+	for (size_t i = 0; i < tv.size(); i++) {
+		cout << tv[i] << endl;
+	}*/
 	double sum = 0;
 	for (size_t i = 0; i < p.size(); i++) {
 		sum += (tv[i] - (softads(tv[i] - p[i]))) * (tv[i] - (softads(tv[i] - p[i])));
@@ -37,7 +43,7 @@ double lr) {
 	
 
 	for (int i = 0; i < neur[2]; i++) {
-		for (int n = 0; n < neur[1]; n++) { ow[i][n] += ((output[i] * ha[step-1][n]) * yes) * lr; }
+		for (int n = 0; n < neur[1]; n++) { ow[i][n] += ((output[i] * ha[(size_t)step-1][n]) * yes) * lr; }
 	}
 	return yes;
 }

@@ -5,9 +5,9 @@
 
 inline initc init(vector<int> neur, int M, double x) {
 	initc c;
-	srand(time(nullptr));
+	srand((unsigned int)time(nullptr));
 	//输入层权重 (隐藏层神经元数 × 输入层神经元数)
-	c.iw.resize(neur[1] - M);
+	c.iw.resize((size_t)neur[1] - M);
 	for (size_t i = 0; i < c.iw.size(); i++) { c.iw[i].resize(neur[0], 1.0); }
 	
 	//隐藏层权重
