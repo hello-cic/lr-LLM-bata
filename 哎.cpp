@@ -26,20 +26,22 @@ int main() {
     SetConsoleCP(CP_UTF8);        // 输入 UTF-8
     SetConsoleOutputCP(CP_UTF8);  // 输出 UTF-8
 	vector<char32_t> allchar;
-	vector<int> neur = { 2 , 10 , 2 };
-	initc c = init(neur, 5, 0.25);
-	std::string u8input;
-	getline(cin, u8input);
-    u32string input = mc::utf8_to_u32(u8input);
-	vector<vector<double>> bin;
-	for (size_t i = 0; i < input.size(); i++) {
-		if (findp(allchar, input[i]) == -1) { allchar.push_back(input[i]); }
-		bin.push_back(vitovd(mc::bin(findp(allchar, input[i]))));
-		bin[i].resize(neur[0]); //少的补上，防止越界
-	}
-	//训练：
-	for (int i = 1; i < input.size(); i++) {
-		NN(take(bin, i), bin[i], c, 5, i, neur, U"go", 5, 5);
-		//cout << "1" << endl;
+	vector<int> neur = { 2 , 50 , 2 };
+	initc c = init(neur, 25, 0.25); //填N
+	for (;;) { //或while(true)
+		std::string u8input;
+		cout << "训练数据："; getline(cin, u8input);
+		u32string input = mc::utf8_to_u32(u8input);
+		int go_index; cout << "开始训练字符："; cin >> go_index;
+		vector<vector<double>> bin;
+		for (size_t i = 0; i < input.size(); i++) {
+			if (findp(allchar, input[i]) == -1) { allchar.push_back(input[i]); }
+			bin.push_back(vitovd(mc::bin(findp(allchar, input[i]))));
+			bin[i].resize(neur[0]); //少的补上，防止越界
+		}
+		//训练：
+		for (int i = go_index; i < input.size(); i++) {
+			NN(take(bin, i), bin[i], c, 100, i, neur, U"go", 25, 25);
+		}
 	}
 }

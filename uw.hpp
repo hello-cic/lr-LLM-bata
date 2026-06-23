@@ -31,7 +31,7 @@ double lr) {
 
 	for (int step_ = 0; step_ < step; step_++) {
 		for (int i = 0; i < neur[1]; i++) {
-			for (int n = 0; n < neur[1]; n++) { hw[i][n] += ((ha[step_][i] * ha[step_][n]) * yes) * lr; }
+			for (int n = 0; n < neur[1]; n++) { hw[i][n] -= ((ha[step_][i] * ha[step_][n]) * yes) * lr; }
 		}
 	}
 	

@@ -42,10 +42,13 @@ int N = 10, int M = 10) {
             lr = std::max(lr, 1e-4);
             
         }
-        
-        for (size_t i = 0; i < yes.size(); i++) { cout << yes[i] << endl; }
-        cout << "最终lr：" << lr << endl;
-        cout << "平均正确度：" << se / _step_ << endl;
+        #if 0
+        {
+            for (size_t i = 0; i < yes.size(); i++) { cout << yes[i] << endl; }
+            cout << "最终lr：" << lr << endl;
+            cout << "平均正确度：" << se / _step_ << endl;
+        }
+        #endif
         /*cout << "\n";
         for (size_t i = 0; i < c.b.size(); i++) { cout << c.b[i] << endl; } */
     }
