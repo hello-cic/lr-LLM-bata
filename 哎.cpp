@@ -32,7 +32,7 @@ int main() {
 		std::string u8input;
 		cout << "训练数据："; getline(cin, u8input);
 		u32string input = mc::utf8_to_u32(u8input);
-		int go_index; cout << "开始训练字符："; cin >> go_index;
+		int go_index; cout << "开始训练字符："; cin >> go_index; cin.ignore();
 		vector<vector<double>> bin;
 		for (size_t i = 0; i < input.size(); i++) {
 			if (findp(allchar, input[i]) == -1) { allchar.push_back(input[i]); }
