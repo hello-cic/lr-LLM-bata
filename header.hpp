@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "struct.hpp"
-#include "cmd.h"
+#include "cmd.hpp"
 #include "yp.hpp"
 
 using std::cout;

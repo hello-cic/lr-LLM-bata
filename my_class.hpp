@@ -9,6 +9,8 @@ using std::u32string;
 
 #include <vector>
 
+#include <iostream>
+
 class mc {
 public:
     static u32string utf8_to_u32(const string& s) {
@@ -49,6 +51,17 @@ public:
         }
         std::reverse(result.begin(), result.end());
         return result;
+    }
+
+    static long long invbin(const std::vector<double>& bits) {
+        long long decimal = 0;
+        for (double bit : bits) {
+            int b = (bit > 0.5) ? 1 : 0;
+            //std::cout << b << std::endl;
+            decimal = (decimal << 1) | b;
+        }
+
+        return decimal;
     }
 };
 

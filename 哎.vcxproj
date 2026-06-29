@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -95,6 +95,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 /O2 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 /O2 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,13 +150,16 @@
     <ClInclude Include="NN.hpp" />
     <ClInclude Include="NN_main.hpp" />
     <ClInclude Include="yp.hpp" />
-    <ClInclude Include="cmd.h" />
+    <ClInclude Include="cmd.hpp" />
     <ClInclude Include="header.hpp" />
     <ClInclude Include="init.hpp" />
     <ClInclude Include="run.hpp" />
     <ClInclude Include="Softmax.hpp" />
     <ClInclude Include="struct.hpp" />
     <ClInclude Include="uw.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="一些文本.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,66 +1,79 @@
-﻿#ifndef run_hpp
+#ifndef run_hpp
 #define run_hpp
 
 #include "header.hpp"
 
-inline double sigmoid(double x) {return 1.0 / (1.0 + exp(0 - x));}
-
-inline double silu(double x) {return x * sigmoid(x);}
-
-inline vector<double> inita(int neurs, 
-const vector<double> ip, 
-const vector<double> b, 
-const vector<vector<double>> w) {
-	vector<double> inita;
-	for (int i = 0; i < neurs; i++) {
-		double sum = 0.0;
-		for (size_t n = 0; n < ip.size(); n++) { sum += ip[n] * w[i][n];}
-		sum = abs(sum - b[i]);
-		inita.push_back(sum);
+inline double sigmoid(double x) {
+	if (x >= 0) {
+		return 1.0 / (1.0 + exp(-x));
 	}
-	return inita;
+	else {
+		double exp_x = exp(x);
+		return exp_x / (1.0 + exp_x);
+	}
 }
-inline runc run(vector<vector<double>>& iw,
-vector<vector<double>>& hw,
-vector<double>& b, 
-vector<vector<double>> ow,
-const vector<vector<double>> input,
-const vector<int> neur, int step, int N, int M, double rr) {
+
+inline double silu(double x) { return x * sigmoid(x); }
+
+inline runc run(initc& c,
+	const vector<vector<double>>& input,
+	const vector<int>& neur, int step, int N, int M, double rr) {
 	runc rc;
 	if (N + M != neur[1]) {
 		if (N + M < neur[1]) { rc.error.push_back(U"Please increase the number of hidden layers."); }
 		if (N + M > neur[1]) { rc.error.push_back(U"Please decrease the number of hidden layers."); }
 		return rc;
 	}
-	vector<double> ip(neur[1], 0.0);
-	vector<double> op(ip.size());
-	vector<double> r(N, 0.0);
-	for (size_t step_ = 0; step_ < step; step_++) {
-		vector<double> _initha_ = inita(neur[1] - M, input[step_], b, iw);
-		op = _initha_;
-		op.insert(op.end(), r.begin(), r.end());
-		for (size_t i = 0;i < neur[1];i++) {
-			double sum = 0;
-			for (size_t n = 0; n < neur[1]; n++) { sum += op[n] * hw[i][n]; }
-			if (i < N) {
-				if (sum < 0.2) { b[i] = (b[i] * 0.7) * (sum * 0.3); }
-				else { b[i] *= 0.7; }
-				b[i] = std::min(b[i], 5.0);
+
+	const size_t hidden = neur[1];
+	const size_t input_neurons = neur[0];
+	const size_t output_neurons = neur[2];
+	const size_t feed_neurons = hidden - M;
+
+	vector<double> op(hidden);
+	vector<double> r(M, 0.0);
+	vector<double> tmpr(M);
+	vector<double> pre(hidden);
+
+	rc.ha.reserve(step);
+	rc.hp.reserve(step);
+
+	for (int step_ = 0; step_ < step; step_++) {
+		// 前馈输入层：加权求和加偏置
+		for (size_t i = 0; i < feed_neurons; i++) {
+			double sum = 0.0;
+			for (size_t n = 0; n < input_neurons && n < input[step_].size(); n++) {
+				sum += input[step_][n] * c.iw[i][n];
 			}
-			for (size_t n = 0; n < neur[1]; n++) { hw[i][n] -= sum * 0.000000001 / step; }
-			sum /= b[i];
-			sum = tanh(sum);
+			sum += c.b[i];
 			op[i] = sum;
 		}
-		vector<double> tmpr(op.end() - r.size(), op.end());
+		// 复制上一时刻递归状态
+		for (size_t i = feed_neurons; i < hidden; i++) { op[i] = r[i - feed_neurons]; }
+
+		// 隐藏层：加权求和加偏置后经 tanh 激活
+		for (size_t i = 0; i < hidden; i++) {
+			double sum = 0.0;
+			for (size_t n = 0; n < hidden; n++) { sum += op[n] * c.hw[i][n]; }
+			sum += c.b[i];
+			pre[i] = sum;
+			op[i] = tanh(sum);
+		}
+
+		for (size_t i = 0; i < M; i++) { tmpr[i] = op[feed_neurons + i]; }
 		r = jp(cpp(rr, r), cpp((1.0 - rr), tmpr));
 		rc.ha.push_back(op);
-		op.resize(op.size() - r.size());
-		ip = op;
+		rc.hp.push_back(pre);
 	}
-	vector<double> ob;
-	for (size_t i = 0;i < neur[2];i++) { ob.push_back(0.0); }
-	rc.output = inita(neur[2], op, ob, ow);
+
+	// 输出层：加权求和加输出偏置，sigmoid 在外部应用
+	rc.output.resize(output_neurons);
+	for (size_t i = 0; i < output_neurons; i++) {
+		double sum = 0.0;
+		for (size_t n = 0; n < feed_neurons; n++) { sum += op[n] * c.ow[i][n]; }
+		sum += c.ob[i];
+		rc.output[i] = sum;
+	}
 	return rc;
 }
 
